@@ -1,7 +1,9 @@
 import ToDo from "./Todo.js";
 import Input from "./TodoInput.js";
 export default class ToDos {
+  //privát lista (adattag)
   #lista = [];
+  //inicalizálja az adattagokat és metódusokat
   constructor(pElem, ipElem, lista) {
     this.#lista = lista;
     this.pElem = pElem;
@@ -12,13 +14,14 @@ export default class ToDos {
     this.addEvent();
     this.okEvent();
   }
-
+  //meg hívja a custem eventet és a listából kitöröl egy elemet
   removeEvent() {
     window.addEventListener("delete", (event) => {
       this.#lista.splice(event.detail, 1);
       this.viewTodos();
     });
   }
+  //meghívja a custem eventet és hozzáad egy elemet a listáhóz
   addEvent() {
     window.addEventListener("add", (event) => {
       let obj = { todoText: event.detail, state: false };
@@ -26,7 +29,7 @@ export default class ToDos {
       this.viewTodos();
     });
   }
-
+   //meghívja a custem eventet és a gomb megnyomása után hozzá adja az elemet a listáhóz
   okEvent() {
     window.addEventListener("done", (event) => {
         
@@ -34,8 +37,7 @@ export default class ToDos {
       this.viewTodos();
       console.log(this.#lista)
     });
-  }
-
+  }//végig megy  listán éa a pElembe létre hoz minden elemhez egy külön pédányt
   viewTodos() {
     this.pElem.innerHTML = "";
     for (let index = 0; index < this.#lista.length; index++) {
@@ -43,7 +45,7 @@ export default class ToDos {
       new ToDo(element, index, this.pElem);
     }
   }
-
+  //létre hoz egy új elemet
   viewInput() {
     new Input(this.ipElem);
   }

@@ -1,6 +1,9 @@
 export default class ToDo {
+  //privát String(adattag)
   #text;
+  //privat int(adattag)
   #index;
+   //inicalizálja az adattagokat és metódusokat
   constructor(text, index, pElem) {
     this.#index = index;
     this.#text = text;
@@ -13,6 +16,7 @@ export default class ToDo {
     this.remove();
     this.ok()
   }
+  //a pElemben létre hozza gombokat és azt szinezi
   view() {
     let html = `
         <p class="text" style="color:${this.#text.state?"green":"black"}">${this.#text.todoText}
@@ -22,7 +26,7 @@ export default class ToDo {
      `;
     this.pElem.insertAdjacentHTML("beforeend", html);
   }
-
+  //létre hozza a "delete" custem eventet
   remove() {
 
     this.deleteElem.addEventListener("click", () => {
@@ -32,7 +36,7 @@ export default class ToDo {
     });
   }
  
-  
+  //létre hozza az "ok" custem eventet
   ok(){
     this,this.OKElem.addEventListener("click", () => {
       const e = new CustomEvent("done", { detail: this.#index})
